@@ -12,22 +12,16 @@ sensor = DistanceSensor(echo=23, trigger=24)    #setting ultrasonic sensor and d
 while True:                             #while loop for if any value is availible
     distance = sensor.distance * 100    #converting distance calculated from sensor into cm from metre
     print('Distance = ', distance)      #printing the value to terminal
-    if (distance > 20):                 #if else loop to change the value of buzzer dependong upon the distance.
+   
+    if(distance < 20):                  #if case for values lower than 20.
+        buzzer.value = 1 - (distance / 20)  #setting the value of the pwm buzzer to 1 - (distance / 20). eg. - let distance be 15. in that case, pwm value will be 1 - 3/4 = 1/4.
+        
+    elif(distance >= 20):
         buzzer.value = 0
-    elif (distance < 20 and distance > 15):
-        buzzer.value = 0.25
-    elif (distance < 15 and distance > 10):
-        buzzer.value = 0.5
-    elif (distance < 10 and distance > 8):
-        buzzer.value = 0.75
-    elif (distance < 8):
-        buzzer.value = 1
 
     
     sleep(1)
-
 buzzer.off()
-    
 
     
 
